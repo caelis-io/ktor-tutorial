@@ -23,7 +23,11 @@ fun Application.module(testing: Boolean = false) {
             }
 
             get("/test") {
-                call.respondText("This is a test")
+                call.respondText("This is a test GET route")
+            }
+
+            post("/test") {
+                call.respondText("This is a test POST route")
             }
 
         }
