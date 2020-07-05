@@ -30,6 +30,15 @@ fun Application.module(testing: Boolean = false) {
                 call.respondText("This is a test POST route")
             }
 
+            post("/test2") {
+                val parameters = call.receiveParameters()
+
+                val paramValue1 = parameters["param1"]
+                val paramValue2 = parameters["param2"] ?: "DEFAULT"
+
+                call.respondText("This is a test POST request with parameter values $paramValue1 and $paramValue2")
+            }
+
         }
 
     }
