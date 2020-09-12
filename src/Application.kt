@@ -1,21 +1,15 @@
 package me.caelis
 
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
-import io.ktor.features.ContentNegotiation
-import io.ktor.gson.gson
-import io.ktor.request.receive
-import io.ktor.request.receiveText
-import io.ktor.response.respond
-import io.ktor.response.respondText
-import io.ktor.routing.get
-import io.ktor.routing.post
-import io.ktor.routing.routing
-import me.caelis.entities.login.LoginRequest
-import me.caelis.entities.login.LoginResponse
+import io.ktor.application.*
+import io.ktor.client.*
+import io.ktor.client.engine.apache.*
+import io.ktor.features.*
+import io.ktor.gson.*
+import io.ktor.request.*
+import io.ktor.response.*
+import io.ktor.routing.*
+import me.caelis.entity.LoginRequest
+import me.caelis.entity.LoginResponse
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -23,14 +17,14 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
 
-    install(ContentNegotiation) {
-        gson {
-            setPrettyPrinting()
-        }
-    }
-
     val client = HttpClient(Apache) {
 
+        install(ContentNegotiation) {
+            gson {
+
+            }
+
+        }
 
         routing {
 
@@ -48,9 +42,11 @@ fun Application.module(testing: Boolean = false) {
                 if (loginRequest.username == "admin" && loginRequest.password == "adminpw") {
                     call.respond(LoginResponse(true, "Login successful!"))
                 } else {
-                    call.respond(LoginResponse(false, "Invalid password!"))
+                    call.respond(LoginResponse(false, "Credentials are invalid!"))
                 }
+
             }
+
         }
 
     }

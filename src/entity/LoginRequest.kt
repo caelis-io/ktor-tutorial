@@ -1,4 +1,4 @@
-package me.caelis.entities.login
+package me.caelis.entity
 
 data class LoginRequest(
     val username: String,
