@@ -14,21 +14,16 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
-    val client = HttpClient(Apache) {
+    routing {
 
-        routing {
+        get("/") {
+            call.respondText("Hello Ktor!")
+        }
 
-            get("/") {
-                call.respondText("Hello Ktor!")
-            }
-
-            get("/test") {
-                call.respondText("This is a test")
-            }
-
+        get("/test") {
+            call.respondText("This is a test")
         }
 
     }
-
 }
 
